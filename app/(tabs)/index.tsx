@@ -1,75 +1,118 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
+import { news } from "@/data/news";
+import { topWords, wordOfTheDay } from "@/data/words";
+import { StyleSheet, Text, View } from "react-native";
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View style={styles.container}>
+      <View style={styles.wordCard}>
+        <Text style={styles.title}>Слово дня</Text>
+        <Text style={styles.word}>{wordOfTheDay.word}</Text>
+        <Text style={styles.meaning}>{wordOfTheDay.meaning}</Text>
+        <Text style={styles.translation}>{wordOfTheDay.translation}</Text>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Топ 5 слов</Text>
+        {topWords.map((item, idx) => (
+          <View key={idx} style={styles.topWordRow}>
+            <Text style={styles.topWord}>{item.word}</Text>
+            <Text style={styles.topWordMeaning}>{item.meaning}</Text>
+          </View>
+        ))}
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Новости</Text>
+        {news.map((item, idx) => (
+          <View key={idx} style={styles.newsRow}>
+            <Text style={styles.newsTitle}>{item.title}</Text>
+            <Text style={styles.newsDate}>{item.date}</Text>
+          </View>
+        ))}
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    paddingTop: 48,
+    backgroundColor: "#f2f2f2",
   },
-  stepContainer: {
-    gap: 8,
+  wordCard: {
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    padding: 16,
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
+    elevation: 2,
+    alignItems: "center",
+    marginHorizontal: 24,
+    marginBottom: 16,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#457b9d",
+    marginBottom: 4,
+  },
+  word: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#e63946",
+    marginBottom: 4,
+  },
+  meaning: {
+    fontSize: 15,
+    color: "#333",
+    marginBottom: 2,
+    textAlign: "center",
+  },
+  translation: {
+    fontSize: 15,
+    color: "#1d3557",
+    fontStyle: "italic",
+    textAlign: "center",
+  },
+  section: {
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    marginHorizontal: 24,
+    marginBottom: 16,
+    padding: 12,
+  },
+  sectionTitle: {
+    fontSize: 17,
+    fontWeight: "bold",
+    color: "#457b9d",
     marginBottom: 8,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  topWordRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 4,
+  },
+  topWord: {
+    fontWeight: "bold",
+    color: "#e63946",
+    fontSize: 16,
+  },
+  topWordMeaning: {
+    color: "#333",
+    fontSize: 15,
+    marginLeft: 8,
+    flex: 1,
+    textAlign: "right",
+  },
+  newsRow: {
+    marginBottom: 6,
+  },
+  newsTitle: {
+    fontSize: 15,
+    color: "#1d3557",
+  },
+  newsDate: {
+    fontSize: 12,
+    color: "#888",
   },
 });

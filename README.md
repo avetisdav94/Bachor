@@ -1,50 +1,100 @@
-# Welcome to your Expo app 👋
+# 🇵🇱 Bachor
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Version 0.1**
 
-## Get started
+**Bachor** is a mobile app for learning Polish slang and providing a handy mini-guide for Russian-speaking migrants in Poland.  
+Built with [React Native](https://reactnative.dev/) and [Expo](https://expo.dev/).
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## ✨ Features
 
-2. Start the app
+- **Word of the Day:** Discover a new Polish slang word every day, with meaning and translation.
+- **Top 5 Words:** See the most popular or useful slang words.
+- **News & Updates:** Stay informed about the latest changes in Polish migration laws and regulations.
+- **Handbook:** Access essential information for migrants in Poland.
+- **Profile:** Personalize your experience.
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## 📱 Screenshots
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+> _Add your screenshots here!_
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+| Home                                 | Words                                  | Handbook                                     | Profile                                    |
+| ------------------------------------ | -------------------------------------- | -------------------------------------------- | ------------------------------------------ |
+| ![Home Screen](screenshots/home.png) | ![Words Screen](screenshots/words.png) | ![Handbook Screen](screenshots/handbook.png) | ![Profile Screen](screenshots/profile.png) |
 
-## Get a fresh project
+---
 
-When you're ready, run:
+## 🚀 Getting Started
 
-```bash
-npm run reset-project
+### Prerequisites
+
+- [Node.js](https://nodejs.org/)
+- [Expo CLI](https://docs.expo.dev/get-started/installation/)
+- [Git](https://git-scm.com/)
+
+### Installation
+
+```sh
+git clone https://github.com/yourusername/bachor.git
+cd bachor
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Running the App
 
-## Learn more
+```sh
+npx expo start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+Scan the QR code with the Expo Go app on your device or run on an emulator.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+---
 
-## Join the community
+## 🗂️ Project Structure
 
-Join our community of developers creating universal apps.
+```
+/app
+  /(tabs)         # Main tab screens (Home, Words, Handbook, Profile)
+  _layout.tsx     # Root layout
+/data
+  words.ts        # Words and slang data
+  news.ts         # News and updates data
+/assets
+  ...             # Images, icons, etc.
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+
+## 🛠️ Technologies
+
+- **React Native**
+- **Expo Router**
+- **TypeScript**
+- **React Navigation**
+- **Expo Vector Icons**
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 🙌 Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
+
+---
+
+## 📬 Contact
+
+Questions, suggestions, or feedback?  
+Open an issue or contact [your-email@example.com](mailto:your-email@example.com).
+
+---
+
+\*\*Bachor — Polish slang and migrant’s guide, all in your
