@@ -19,8 +19,6 @@ Built with [React Native](https://reactnative.dev/) and [Expo](https://expo.dev/
 
 ## 📱 Screenshots
 
-> _Add your screenshots here!_
-
 | Home                                 | Words                                  | Handbook                                     | Profile                                    |
 | ------------------------------------ | -------------------------------------- | -------------------------------------------- | ------------------------------------------ |
 | ![Home Screen](screenshots/home.png) | ![Words Screen](screenshots/words.png) | ![Handbook Screen](screenshots/handbook.png) | ![Profile Screen](screenshots/profile.png) |
@@ -93,7 +91,7 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 ## 📬 Contact
 
 Questions, suggestions, or feedback?  
-Open an issue or contact [your-email@example.com](mailto:your-email@example.com).
+Open an issue or contact [your-email@example.com](mailto:avetisdav94@gmail.com).
 
 ---
 
