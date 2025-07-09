@@ -1,38 +1,45 @@
 import { news } from "@/data/news";
 import { topWords, wordOfTheDay } from "@/data/words";
 import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <View style={styles.wordCard}>
-        <Text style={styles.title}>Слово дня</Text>
-        <Text style={styles.word}>{wordOfTheDay.word}</Text>
-        <Text style={styles.meaning}>{wordOfTheDay.meaning}</Text>
-        <Text style={styles.translation}>{wordOfTheDay.translation}</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <View style={styles.wordCard}>
+          <Text style={styles.title}>Слово дня</Text>
+          <Text style={styles.word}>{wordOfTheDay.word}</Text>
+          <Text style={styles.meaning}>{wordOfTheDay.meaning}</Text>
+          <Text style={styles.translation}>{wordOfTheDay.translation}</Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Топ 5 слов</Text>
+          {topWords.map((item, idx) => (
+            <View key={idx} style={styles.topWordRow}>
+              <Text style={styles.topWord}>{item.word}</Text>
+              <Text style={styles.topWordMeaning}>{item.meaning}</Text>
+            </View>
+          ))}
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Новости</Text>
+          {news.map((item, idx) => (
+            <View key={idx} style={styles.newsRow}>
+              <Text style={styles.newsTitle}>{item.title}</Text>
+              <Text style={styles.newsDate}>{item.date}</Text>
+            </View>
+          ))}
+        </View>
       </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Топ 5 слов</Text>
-        {topWords.map((item, idx) => (
-          <View key={idx} style={styles.topWordRow}>
-            <Text style={styles.topWord}>{item.word}</Text>
-            <Text style={styles.topWordMeaning}>{item.meaning}</Text>
-          </View>
-        ))}
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Новости</Text>
-        {news.map((item, idx) => (
-          <View key={idx} style={styles.newsRow}>
-            <Text style={styles.newsTitle}>{item.title}</Text>
-            <Text style={styles.newsDate}>{item.date}</Text>
-          </View>
-        ))}
-      </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#f2f2f2",
+  },
   container: {
     flex: 1,
     paddingTop: 48,
