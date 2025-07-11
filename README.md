@@ -5,7 +5,7 @@
   
   **Your Polish Slang Dictionary & Migrant's Guide**
   
-  ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+  ![Version](https://img.shields.io/badge/version-0.02-blue.svg)
   ![React Native](https://img.shields.io/badge/React%20Native-0.72-61DAFB.svg)
   ![Expo](https://img.shields.io/badge/Expo-49.0-000020.svg)
   ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6.svg)
@@ -32,6 +32,33 @@
 
 ---
 
+## 🚀 What's New in v0.02
+
+### ✨ **Major Updates**
+
+- **🏗️ Production-Ready Architecture**: Completely restructured codebase for scalability
+- **📱 Improved Navigation**: Clean navigation without duplicate headers
+- **🎨 Consistent Design System**: Unified components and styling
+- **🔧 Better Code Organization**: Separated concerns with proper folder structure
+- **📊 TypeScript Integration**: Full type safety throughout the application
+
+### 🔧 **Technical Improvements**
+
+- **Components**: Modular, reusable UI components
+- **Constants**: Centralized colors, fonts, and layout values
+- **Hooks**: Custom hooks for animations and state management
+- **Types**: Comprehensive TypeScript definitions
+- **Utils**: Helper functions and utilities
+
+### 🎯 **User Experience**
+
+- **Cleaner Interface**: Removed redundant navigation headers
+- **Better Performance**: Optimized animations and rendering
+- **Consistent Styling**: Unified design across all screens
+- **Smoother Transitions**: Enhanced navigation between screens
+
+---
+
 ## ✨ Features
 
 ### 🔥 **Slang Dictionary**
@@ -39,7 +66,8 @@
 - **Word of the Day**: Discover new Polish slang with meanings and translations
 - **Top Words**: Most popular and useful slang terms
 - **Categories**: Organized by topics (Money, Friends, Work, Food, Emotions)
-- **Search**: Find any word quickly
+- **Category Navigation**: Clean, header-free navigation between categories
+- **Word Details**: Comprehensive information for each slang term
 
 ### 📚 **Migrant's Handbook**
 
@@ -64,8 +92,8 @@
 
 - **Progress Tracking**: Monitor your vocabulary growth
 - **Preferences**: Customize notifications and appearance
-- **Dark Mode**: Easy on the eyes
-- **Offline Mode**: Download for offline access
+- **Statistics**: View your learning progress
+- **Settings**: App configuration and preferences
 
 ---
 
@@ -89,11 +117,11 @@
         <i>Categorized slang with meanings</i>
       </td>
       <td align="center">
-        <img src="screenshots/handbook.png" alt="Handbook Screen" width="200">
+        <img src="screenshots/category.png" alt="Category Screen" width="200">
         <br>
-        <b>📋 Migrant's Handbook</b>
+        <b>🔍 Category Details</b>
         <br>
-        <i>Essential guides for life in Poland</i>
+        <i>Clean navigation without headers</i>
       </td>
       <td align="center">
         <img src="screenshots/profile.png" alt="Profile Screen" width="200">
@@ -141,16 +169,6 @@ npx expo start
 2. Scan the QR code from the terminal
 3. The app will load on your device
 
-### Running on Emulator
-
-```bash
-# iOS (requires macOS and Xcode)
-npx expo run:ios
-
-# Android (requires Android Studio)
-npx expo run:android
-```
-
 ---
 
 ## 🗂️ Project Structure
@@ -159,21 +177,50 @@ npx expo run:android
 bachor/
 ├── app/
 │   ├── (tabs)/
-│   │   ├── index.tsx          # Home screen
+│   │   ├── index.tsx              # Home screen
 │   │   ├── words/
-│   │   │   ├── index.tsx      # Words categories
-│   │   │   └── [category].tsx # Category details
-│   │   ├── guide.tsx          # Migrant's handbook
-│   │   └── profile.tsx        # User profile
-│   └── _layout.tsx            # Root layout
-├── data/
-│   ├── words.ts               # Slang words database
-│   ├── wordCategories.ts      # Word categories
-│   └── news.ts                # News and updates
-├── assets/
-│   ├── images/                # App images
-│   └── icons/                 # App icons
-├── screenshots/               # App screenshots
+│   │   │   ├── _layout.tsx        # Words navigation layout
+│   │   │   ├── index.tsx          # Words categories
+│   │   │   └── [category].tsx     # Category details
+│   │   ├── guide.tsx              # Migrant's handbook
+│   │   └── profile.tsx            # User profile
+│   └── _layout.tsx                # Root layout
+├── src/
+│   ├── components/
+│   │   ├── common/                # Reusable components
+│   │   │   ├── Card.tsx
+│   │   │   ├── Header.tsx
+│   │   │   └── EmergencyButton.tsx
+│   │   ├── words/                 # Word-related components
+│   │   │   ├── CategoryCard.tsx
+│   │   │   ├── WordCard.tsx
+│   │   │   └── WordOfTheDay.tsx
+│   │   ├── guide/                 # Guide components
+│   │   │   ├── GuideCard.tsx
+│   │   │   └── EmergencyContacts.tsx
+│   │   └── screens/               # Screen components
+│   │       ├── HomeScreen.tsx
+│   │       ├── WordsScreen.tsx
+│   │       ├── CategoryDetailScreen.tsx
+│   │       ├── GuideScreen.tsx
+│   │       └── ProfileScreen.tsx
+│   ├── constants/                 # App constants
+│   │   ├── colors.ts
+│   │   ├── fonts.ts
+│   │   └── layout.ts
+│   ├── types/                     # TypeScript types
+│   │   ├── index.ts
+│   │   ├── words.ts
+│   │   └── guide.ts
+│   ├── hooks/                     # Custom hooks
+│   │   └── useAnimation.ts
+│   └── utils/                     # Utility functions
+│       └── categoryIcons.ts
+├── data/                          # Static data
+│   ├── words.ts
+│   ├── wordCategories.ts
+│   └── news.ts
+├── assets/                        # App assets
 └── README.md
 ```
 
@@ -202,7 +249,7 @@ bachor/
       <td align="center">
         <img src="https://reactnavigation.org/img/spiro.svg" alt="React Navigation" width="60">
         <br>
-        <b>React Navigation</b>
+        <b>Expo Router</b>
       </td>
     </tr>
   </table>
@@ -214,29 +261,48 @@ bachor/
 - **Expo**: Development platform and tools
 - **TypeScript**: Static type checking
 - **Expo Router**: File-based routing
-- **React Navigation**: Navigation library
 - **Expo Vector Icons**: Beautiful icons
 - **React Native Safe Area Context**: Safe area handling
 
 ---
 
+## 📅 Changelog
+
+### v0.02 (Current)
+
+- 🏗️ **Architecture Refactor**: Complete project restructure for production
+- 📱 **Navigation Improvements**: Removed duplicate headers, cleaner UX
+- 🎨 **Design System**: Unified components and styling
+- 🔧 **Code Organization**: Better separation of concerns
+- 📊 **TypeScript**: Full type safety implementation
+- ✨ **Performance**: Optimized animations and rendering
+
+### v0.01
+
+- 🚀 **Initial Release**: Basic app structure with all main features
+- 📚 **Slang Dictionary**: Categories and word management
+- 📋 **Migrant's Handbook**: Essential information for Poland
+- 🏠 **Home Screen**: Daily word and quick access
+- 👤 **Profile**: User settings and statistics
+
+---
+
 ## 🚀 Roadmap
 
-### Version 1.1 - Coming Soon
+### Version 0.03 - Coming Soon
 
+- [ ] **Search Functionality**: Find words and guides quickly
+- [ ] **Favorites**: Save your favorite words and articles
 - [ ] **Audio Pronunciation**: Listen to correct pronunciation
-- [ ] **Favorites**: Save your favorite words
 - [ ] **Offline Mode**: Download content for offline use
 - [ ] **Push Notifications**: Daily word reminders
-- [ ] **Search Functionality**: Find words quickly
 
-### Version 1.2 - Future
+### Version 0.04 - Future
 
 - [ ] **Dark Mode**: Eye-friendly dark theme
 - [ ] **Language Learning**: Interactive quizzes and games
 - [ ] **Community Features**: User contributions
 - [ ] **Advanced Statistics**: Detailed progress tracking
-- [ ] **More Languages**: Support for other languages
 
 ---
 
@@ -258,7 +324,7 @@ We welcome contributions! Here's how you can help:
 
 ### Contributing Guidelines
 
-- Follow the existing code style
+- Follow the existing code style and architecture
 - Add tests for new features
 - Update documentation as needed
 - Be respectful and constructive

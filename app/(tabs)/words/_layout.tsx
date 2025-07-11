@@ -1,18 +1,16 @@
-import { wordCategories } from "@/data/wordCategories";
+// app/(tabs)/words/_layout.tsx
 import { Stack } from "expo-router";
+import React from "react";
 
-export default function WordsStackLayout() {
+export default function WordsLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen
-        name="[category]"
-        options={({ route }) => {
-          const categoryKey = (route.params as { category?: string })?.category;
-          const cat = wordCategories.find((c) => c.key === categoryKey);
-          return { title: cat ? cat.title : "Категория" };
-        }}
-      />
+    <Stack
+      screenOptions={{
+        headerShown: false, // Убираем заголовки для всех экранов в words
+      }}
+    >
+      <Stack.Screen name="index" />
+      <Stack.Screen name="[category]" />
     </Stack>
   );
 }
