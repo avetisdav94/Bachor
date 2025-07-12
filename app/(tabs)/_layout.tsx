@@ -10,7 +10,7 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: Colors.primary,
         tabBarInactiveTintColor: Colors.textSecondary,
-        headerShown: false, // Убираем заголовки для всех табов
+        headerShown: false,
         tabBarStyle: {
           backgroundColor: Colors.background,
           borderTopWidth: 1,

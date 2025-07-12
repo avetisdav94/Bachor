@@ -1,3 +1,12 @@
+// src/components/screens/HomeScreen.tsx
+import { Card } from "@/src/components/common/Card";
+import { Header } from "@/src/components/common/Header";
+import { WordOfTheDayCard } from "@/src/components/words/WordOfTheDay";
+import { Colors } from "@/src/constants/colors";
+import { Fonts } from "@/src/constants/fonts";
+import { Layout } from "@/src/constants/layout";
+import { useAnimation } from "@/src/hooks/useAnimation";
+import { useRouter } from "expo-router";
 import React from "react";
 import {
   Animated,
@@ -7,20 +16,13 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Card } from "../../components/common/Card";
-import { Header } from "../../components/common/Header";
-import { WordOfTheDayCard } from "../../components/words/WordOfTheDay";
-import { Colors } from "../../constants/colors";
-import { Fonts } from "../../constants/fonts";
-import { Layout } from "../../constants/layout";
-import { useAnimation } from "../../hooks/useAnimation";
-
 // Импортируйте данные
 import { news } from "@/data/news";
 import { topWords, wordOfTheDay } from "@/data/words";
 
 export const HomeScreen: React.FC = () => {
   const fadeAnim = useAnimation();
+  const router = useRouter();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.background }}>
@@ -157,7 +159,13 @@ export const HomeScreen: React.FC = () => {
                   Выбери диалект
                 </Text>
               </View>
-              <View style={{ flexDirection: "row", gap: 12, flexWrap: "wrap" }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  gap: 12,
+                  flexWrap: "wrap",
+                }}
+              >
                 <TouchableOpacity
                   style={{
                     backgroundColor: Colors.primary,
@@ -245,8 +253,14 @@ export const HomeScreen: React.FC = () => {
                 </Text>
               </View>
               {news.map((item, idx) => (
-                <View
+                <TouchableOpacity
                   key={idx}
+                  onPress={() =>
+                    router.push({
+                      pathname: "/news-detail",
+                      params: { id: item.id },
+                    })
+                  }
                   style={{
                     paddingVertical: 12,
                     borderBottomWidth: idx < news.length - 1 ? 1 : 0,
@@ -266,11 +280,23 @@ export const HomeScreen: React.FC = () => {
                     style={{
                       fontSize: Fonts.bodySmall,
                       color: Colors.textSecondary,
+                      marginBottom: 4,
                     }}
                   >
                     {item.date}
                   </Text>
-                </View>
+                  {item.excerpt && (
+                    <Text
+                      style={{
+                        fontSize: Fonts.bodySmall,
+                        color: Colors.textSecondary,
+                        fontStyle: "italic",
+                      }}
+                    >
+                      {item.excerpt}
+                    </Text>
+                  )}
+                </TouchableOpacity>
               ))}
             </Card>
           </View>
