@@ -83,7 +83,13 @@ export const CategoryDetailScreen: React.FC = () => {
             paddingTop: Layout.padding,
             paddingBottom: Layout.padding,
           }}
-          renderItem={({ item }) => <WordCard word={item} />}
+          renderItem={({ item }) => (
+            <WordCard
+              word={item}
+              category={categoryData.title}
+              showCategory={false}
+            />
+          )}
           showsVerticalScrollIndicator={false}
         />
       </Animated.View>
