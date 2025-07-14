@@ -1,12 +1,9 @@
-// src/components/words/CategoryCard.tsx (обновленная версия)
-import { Fonts } from "@/src/constants/fonts";
-import { Layout } from "@/src/constants/layout";
+// src/components/words/CategoryCard.tsx
 import { useRouter } from "expo-router";
 import React from "react";
-import { Pressable, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Colors } from "../../constants/colors";
 import { WordCategory } from "../../types";
-import { getCategoryIcon } from "../../utils/categoryIcons";
 
 interface CategoryCardProps {
   category: WordCategory;
@@ -15,89 +12,78 @@ interface CategoryCardProps {
 export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
   const router = useRouter();
 
+  // Проверяем, что category определен
+  if (!category) {
+    console.warn("CategoryCard: category is undefined");
+    return null;
+  }
+
+  const handlePress = () => {
+    router.push(`/(tabs)/words/${category.id}`);
+  };
+
   return (
-    <Pressable
-      onPress={() => router.push(`/(tabs)/words/${category.key}`)}
-      style={({ pressed }) => ({
-        backgroundColor: Colors.background,
-        borderRadius: Layout.borderRadius,
-        padding: Layout.cardPadding,
-        marginBottom: 16,
-        borderWidth: 1,
-        borderColor: Colors.border,
-        shadowColor: "#000",
-        shadowOpacity: pressed ? 0.05 : 0.03,
-        shadowRadius: pressed ? 4 : 8,
-        shadowOffset: { width: 0, height: 2 },
-        elevation: pressed ? 1 : 2,
-        transform: [{ scale: pressed ? 0.98 : 1 }],
-      })}
+    <TouchableOpacity
+      style={[styles.container, { backgroundColor: category.color }]}
+      onPress={handlePress}
+      activeOpacity={0.8}
     >
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            flex: 1,
-          }}
-        >
-          <View
-            style={{
-              backgroundColor: category.color + "20",
-              borderRadius: 16,
-              width: Layout.iconSize,
-              height: Layout.iconSize,
-              justifyContent: "center",
-              alignItems: "center",
-              marginRight: 16,
-            }}
-          >
-            <Text style={{ fontSize: 24 }}>
-              {getCategoryIcon(category.key)}
-            </Text>
-          </View>
-
-          <View style={{ flex: 1 }}>
-            <Text
-              style={{
-                fontSize: Fonts.titleSmall,
-                fontWeight: Fonts.weightSemiBold,
-                color: Colors.text,
-                marginBottom: 4,
-              }}
-            >
-              {category.title}
-            </Text>
-            <Text
-              style={{
-                fontSize: Fonts.bodySmall,
-                color: Colors.textSecondary,
-              }}
-            >
-              {category.words.length} слов
-            </Text>
-          </View>
-        </View>
-
-        <View
-          style={{
-            backgroundColor: Colors.card,
-            borderRadius: 12,
-            width: Layout.smallIconSize,
-            height: Layout.smallIconSize,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text style={{ fontSize: 16, color: Colors.textSecondary }}>→</Text>
+      <View style={styles.content}>
+        <Text style={styles.icon}>{category.icon}</Text>
+        <Text style={styles.title} numberOfLines={2}>
+          {category.title}
+        </Text>
+        <Text style={styles.description} numberOfLines={3}>
+          {category.description}
+        </Text>
+        <View style={styles.footer}>
+          <Text style={styles.wordCount}>{category.wordsCount || 0} слов</Text>
         </View>
       </View>
-    </Pressable>
+    </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 16,
+    elevation: 3,
+    shadowColor: Colors.shadow,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  content: {
+    flex: 1,
+  },
+  icon: {
+    fontSize: 32,
+    marginBottom: 8,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: Colors.white,
+    marginBottom: 4,
+  },
+  description: {
+    fontSize: 14,
+    color: Colors.white,
+    opacity: 0.9,
+    lineHeight: 20,
+    marginBottom: 12,
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  wordCount: {
+    fontSize: 12,
+    color: Colors.white,
+    opacity: 0.8,
+    fontWeight: "500",
+  },
+});

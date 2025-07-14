@@ -1,17 +1,21 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Animated } from "react-native";
-import { Layout } from "../constants/layout";
 
-export const useAnimation = (duration: number = Layout.animationDuration) => {
-  const fadeAnim = useRef(new Animated.Value(0)).current;
+export const useAnimation = (initialValue: number = 0) => {
+  const animatedValue = useRef(new Animated.Value(initialValue)).current;
 
-  useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
+  const animate = (toValue: number, duration: number = 300) => {
+    return Animated.timing(animatedValue, {
+      toValue,
       duration,
       useNativeDriver: true,
-    }).start();
-  }, [fadeAnim, duration]);
+    });
+  };
 
-  return fadeAnim;
+  const start = (toValue: number, duration?: number) => {
+    animate(toValue, duration).start();
+  };
+
+  // Возвращаем сам Animated.Value, а не объект
+  return animatedValue;
 };

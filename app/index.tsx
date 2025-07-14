@@ -1,11 +1,13 @@
-import { Colors } from "@/src/constants/colors"; // Исправляем импорт Colors
+import { Colors } from "@/src/constants/colors";
 import { Fonts } from "@/src/constants/fonts";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
+import { useAuth } from "../src/context/AuthContext";
 
 export default function Index() {
   const router = useRouter();
+  const { user, loading } = useAuth();
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
@@ -18,18 +20,16 @@ export default function Index() {
   }, []);
 
   useEffect(() => {
-    if (isReady) {
-      // Проверяем, первый ли раз пользователь открывает приложение
-      // В будущем здесь будет проверка AsyncStorage
-      const isFirstLaunch = true; // Пока всегда true
-
-      if (isFirstLaunch) {
-        router.replace("/onboarding");
-      } else {
+    if (isReady && !loading) {
+      if (user) {
+        // Пользователь авторизован - переходим в приложение
         router.replace("/(tabs)");
+      } else {
+        // Пользователь не авторизован - показываем онбординг
+        router.replace("/onboarding");
       }
     }
-  }, [isReady, router]);
+  }, [isReady, loading, user, router]);
 
   return (
     <View
@@ -45,10 +45,31 @@ export default function Index() {
           fontSize: Fonts.titleLarge,
           fontWeight: Fonts.weightBold,
           color: Colors.text,
+          marginBottom: 20,
         }}
       >
         Bachor
       </Text>
+
+      {/* Показываем загрузку только если проверяем авторизацию */}
+      {loading && (
+        <>
+          <ActivityIndicator
+            size="large"
+            color={Colors.primary}
+            style={{ marginVertical: 20 }}
+          />
+          <Text
+            style={{
+              fontSize: Fonts.bodyMedium,
+              color: Colors.textSecondary,
+              marginTop: 10,
+            }}
+          >
+            Загрузка...
+          </Text>
+        </>
+      )}
     </View>
   );
 }

@@ -1,3 +1,4 @@
+// src/components/screens/OnboardingScreen.tsx
 import { onboardingSlides } from "@/data/onboarding";
 import { AuthOptions } from "@/src/components/onboarding/AuthOptions";
 import { OnboardingSlide } from "@/src/components/onboarding/OnboardingSlide";
@@ -5,6 +6,7 @@ import { Colors } from "@/src/constants/colors";
 import { Fonts } from "@/src/constants/fonts";
 import { Layout } from "@/src/constants/layout";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
@@ -23,6 +25,17 @@ export const OnboardingScreen: React.FC = () => {
   const scrollViewRef = useRef<ScrollView>(null);
   const router = useRouter();
 
+  const handleOnboardingComplete = async () => {
+    try {
+      await AsyncStorage.setItem("hasLaunchedBefore", "true");
+      console.log("Onboarding completed, navigating to tabs"); // Для отладки
+      router.replace("/(tabs)"); // Переходим сразу в приложение при пропуске
+    } catch (error) {
+      console.error("Error saving onboarding state:", error);
+      router.replace("/(tabs)");
+    }
+  };
+
   const handleNext = () => {
     if (currentIndex < onboardingSlides.length - 1) {
       const nextIndex = currentIndex + 1;
@@ -39,8 +52,10 @@ export const OnboardingScreen: React.FC = () => {
     }
   };
 
-  const handleSkip = () => {
-    router.replace("/(tabs)");
+  const handleSkip = async () => {
+    await AsyncStorage.setItem("hasLaunchedBefore", "true");
+    console.log("Skipping to sign-in"); // Для отладки
+    router.replace("/sign-in");
   };
 
   const handleScroll = (event: any) => {
@@ -53,15 +68,13 @@ export const OnboardingScreen: React.FC = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* Скрываем status bar для полного экрана */}
       <StatusBar hidden />
 
-      {/* Skip Button */}
       <TouchableOpacity
         onPress={handleSkip}
         style={{
           position: "absolute",
-          top: 50, // Увеличиваем отступ сверху
+          top: 50,
           right: Layout.padding,
           zIndex: 10,
           backgroundColor: "rgba(0, 0, 0, 0.3)",
@@ -81,7 +94,6 @@ export const OnboardingScreen: React.FC = () => {
         </Text>
       </TouchableOpacity>
 
-      {/* Slides */}
       <ScrollView
         ref={scrollViewRef}
         horizontal
@@ -96,7 +108,6 @@ export const OnboardingScreen: React.FC = () => {
         ))}
       </ScrollView>
 
-      {/* Bottom Container */}
       <View
         style={{
           position: "absolute",
@@ -107,7 +118,7 @@ export const OnboardingScreen: React.FC = () => {
         }}
       >
         {isLastSlide ? (
-          <AuthOptions />
+          <AuthOptions onComplete={handleOnboardingComplete} />
         ) : (
           <View
             style={{

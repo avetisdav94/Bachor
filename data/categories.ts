@@ -1,9 +1,10 @@
-import { WordCategory } from "@/src/types";
+// data/categories.ts
+import { WordCategory } from "../src/types";
 
-export const wordCategories: WordCategory[] = [
+export const categories: WordCategory[] = [
   {
     id: "podstawowe",
-    key: "podstawowe", // Добавляем key для FlatList
+    key: "podstawowe",
     title: "Основные слова",
     description: "Самые употребляемые слова польского сленга",
     icon: "🔤",
